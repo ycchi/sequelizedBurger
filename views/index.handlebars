@@ -1,0 +1,99 @@
+<div class="container bg-dark">
+<div class="jumbotron jumbotron-fluid bg-dark text-light p-5">
+  <h1 class="display-3">BURGERS!!!</h1>
+  <hr class="my-2 bg-light">
+  <p class="lead">Add a Burger, Devour a Burger, and Un-devour a burger?!</p>
+
+
+</div>
+
+<div class="container">
+  <div class="row">
+    <hr>
+    <hr>
+    {{!-- column for form --}}
+    <div class="container d-flex justify-content-center">
+      <form id="burger-form">
+        <span>
+        <input class="form-control" id="name-input" placeholder="Burger Name"/>
+        <button class="btn btn-danger btn-block" type="submit">
+          Add A Burger!
+        </button>
+        </span>
+      </form>
+    </div>
+    {{!-- end left column --}}
+
+  </div>
+
+  <hr class="bg-light">
+  
+
+  <div class="row">
+    
+    {{!-- right column to display burger--}}
+    <div class="col-12 col-md-12">
+      {{!-- make two columns in right column --}}
+      <div class="row">
+        {{!-- inner left column --}}
+        <div class="col-12 col-md-6">
+          <h2 class="text-light">Burgers Yet To Be Devoured</h2>
+          <ul class="list-group">
+            {{!-- use handlebars to print burger that aren't not devoured --}}
+            {{#each burgerData}}
+              {{!-- this is the same as saying !== --}}
+              {{#unless devoured}}
+                <li class="list-group-item d-flex">
+                  {{burger_name}} 
+                  <span class="ml-auto">
+                    <button 
+                      data-id="{{id}}"
+                      data-devoured="true"
+                      class="btn btn-sm btn-warning update-burger"
+                      >
+                     Devour!
+                    </button>
+
+                    {{!-- delete burger --}}
+                    
+                    <i data-id="{{id}}" class="fas fa-times-circle delete-burger"></i>
+                  </span>
+                </li>
+              {{/unless}}
+            {{/each}}
+          </ul>
+        </div>
+        {{!-- end inner left --}}
+        {{!-- inner right --}}
+        <div class="col-12 col-md-6">
+          <h2 class="text-light">Devoured Burgers</h2>
+          <ul class="list-group">
+            {{!-- use handlebars to print burgers that aren't devoured --}}
+            {{#each burgerData}}
+            {{!-- this is the same as saying !== --}}
+            {{#if devoured}}
+            <li class="list-group-item d-flex">
+              {{burger_name}}
+              <span class="ml-auto">
+                <button data-id="{{id}}" data-devoured="false" class="btn btn-sm btn-info update-burger">
+                  Un-Devour?!
+                </button>
+                
+        
+                {{!-- delete burger --}}
+                
+                <i data-id="{{id}}" class="fas fa-times-circle delete-burger"></i>
+              </span>
+            </li>
+            {{/if}}
+            {{/each}}
+          </ul>
+        </div>
+        {{!-- end inner right --}}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="./assets/js/burgers.js"></script>
