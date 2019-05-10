@@ -7,7 +7,8 @@ $(document).ready(function() {
  
      // package up form data for req.body purposes
      const burgerData = {
-       burger_name: $("#name-input").val().trim()
+       burger_name: $("#name-input").val().trim(),
+       devoured: 0
      };
      
    
@@ -30,7 +31,9 @@ $(document).ready(function() {
      // read back burger's id and devoured status
      const burgerId = $(this).attr("data-id");
      const devoured = $(this).attr("data-devoured")
- 
+
+     console.log(devoured);
+
      $.ajax({
        url: `/api/burgers/${burgerId}`,
        method: "PUT",
@@ -38,7 +41,10 @@ $(document).ready(function() {
          devoured: devoured
        } // req.body
      })
-     .then(() => location.reload())
+     .then(() => {
+      console.log(devoured);
+      location.reload()
+    })
      .catch(err => console.log(err));
    });
  

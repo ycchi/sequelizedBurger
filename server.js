@@ -2,6 +2,9 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 
+// Requiring our models for syncing
+const db = require("./models");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -17,7 +20,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 // turn on routes
-require('./routes/htmlRoutes')(app);
+//require('./routes/htmlRoutes')(app);
 require('./routes/apiRoutes')(app);
 
 // set up wildcard (404) route
@@ -29,4 +32,8 @@ app.get('*', function(req, res) {
 });
 
 // turn on server
-app.listen(PORT, () => console.log(`🌍 => listening to http://localhost:${PORT}`));
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, () => console.log(`🌍 => listening to http://localhost:${PORT}`));
+})
+
+
